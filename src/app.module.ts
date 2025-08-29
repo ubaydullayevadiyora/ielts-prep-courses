@@ -8,11 +8,11 @@ import { Admin } from './admin/entities/admin.entity';
 import { User } from './users/entities/user.entity';
 import { CourseModule } from './courses/courses.module';
 import { UnitModule } from './units/units.module';
-import { SessionsModule } from './sessions/sessions.module';
-import { LessonsModule } from './lessons/lessons.module';
-import { EnrollmentsModule } from './enrollments/enrollments.module';
+import { SessionModule } from './sessions/sessions.module';
+import { LessonModule } from './lessons/lessons.module';
+import { EnrollmentModule } from './enrollments/enrollments.module';
 import { LessonProgressModule } from './lesson-progress/lesson-progress.module';
-import { ReviewsModule } from './reviews/reviews.module';
+import { ReviewModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -32,11 +32,11 @@ import { ReviewsModule } from './reviews/reviews.module';
     AuthModule,
     CourseModule,
     UnitModule,
-    SessionsModule,
-    LessonsModule,
-    EnrollmentsModule,
+    SessionModule,
+    LessonModule,
+    EnrollmentModule,
     LessonProgressModule,
-    ReviewsModule,
+    ReviewModule,
   ],
 })
 export class AppModule {}
