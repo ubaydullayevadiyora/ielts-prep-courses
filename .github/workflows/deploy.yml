@@ -35,6 +35,6 @@ jobs:
             fi
             npm install
             npm run build
-            pm2 restart ielts_prep_app || pm2 start dist/main.js --name ielts_prep_app
+            pm2 restart ielts_prep || pm2 start dist/main.js --name ielts_prep
           "
         shell: bash
