@@ -21,6 +21,7 @@ import { Review } from './reviews/entities/review.entity';
 import { Unit } from './units/entities/unit.entity';
 import { Enrollment } from './enrollments/entities/enrollment.entity';
 import { MaterialsModule } from './materials/materials.module';
+import { Material } from './materials/entities/material.entity';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { MaterialsModule } from './materials/materials.module';
       username: process.env.PG_USER,
       password: String(process.env.PG_PASSWORD),
       database: process.env.PG_DB,
-      entities: [Admin, User, Course, Lesson, Session, LessonProgress, Review, Unit, Enrollment],
+      entities: [Admin, User, Course, Lesson, Session, LessonProgress, Review, Unit, Enrollment, Material],
       synchronize: true,
     }),
     AdminModule,
