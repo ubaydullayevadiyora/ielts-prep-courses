@@ -26,7 +26,6 @@ export class LessonService {
 
     const lesson = this.lessonRepository.create({
       title: dto.title,
-      content: dto.content,
       order_number: dto.order_number,
       session,
     });
@@ -62,7 +61,6 @@ export class LessonService {
     }
 
     if (dto.title) lesson.title = dto.title;
-    if (dto.content) lesson.content = dto.content;
     if (dto.order_number !== undefined) lesson.order_number = dto.order_number;
 
     return await this.lessonRepository.save(lesson);
