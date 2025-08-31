@@ -13,6 +13,14 @@ import { LessonModule } from './lessons/lessons.module';
 import { EnrollmentModule } from './enrollments/enrollments.module';
 import { LessonProgressModule } from './lesson-progress/lesson-progress.module';
 import { ReviewModule } from './reviews/reviews.module';
+import { Course } from './courses/entities/course.entity';
+import { Lesson } from './lessons/entities/lesson.entity';
+import { Session } from './sessions/entities/session.entity';
+import { LessonProgress } from './lesson-progress/entities/lesson-progress.entity';
+import { Review } from './reviews/entities/review.entity';
+import { Unit } from './units/entities/unit.entity';
+import { Enrollment } from './enrollments/entities/enrollment.entity';
+import { MaterialsModule } from './materials/materials.module';
 
 @Module({
   imports: [
@@ -24,7 +32,7 @@ import { ReviewModule } from './reviews/reviews.module';
       username: process.env.PG_USER,
       password: String(process.env.PG_PASSWORD),
       database: process.env.PG_DB,
-      entities: [Admin, User],
+      entities: [Admin, User, Course, Lesson, Session, LessonProgress, Review, Unit, Enrollment],
       synchronize: true,
     }),
     AdminModule,
@@ -37,6 +45,7 @@ import { ReviewModule } from './reviews/reviews.module';
     EnrollmentModule,
     LessonProgressModule,
     ReviewModule,
+    MaterialsModule,
   ],
 })
 export class AppModule {}

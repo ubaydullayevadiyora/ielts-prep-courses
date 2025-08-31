@@ -1,14 +1,14 @@
+// auth/auth.module.ts
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { AdminAuthModule } from './admin/admin-auth.module';
 import { UserAuthModule } from './user/user-auth.module';
-import { AdminJwtStrategy } from './strategies/admin-jwt.strategy';
-import { UserJwtStrategy } from './strategies/user-jwt.strategy';
+import { JwtStrategy } from './strategies/jwt-strategy';// 🔑 qo‘shish kerak
 
 @Module({
   imports: [
-    PassportModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }), // default jwt qilamiz
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'supersecret',
       signOptions: { expiresIn: '1d' },
@@ -16,6 +16,7 @@ import { UserJwtStrategy } from './strategies/user-jwt.strategy';
     AdminAuthModule,
     UserAuthModule,
   ],
-  providers: [AdminJwtStrategy, UserJwtStrategy],
+  providers: [JwtStrategy], // 🔑 bu yerda ro‘yxatdan o‘tadi
+  exports: [JwtModule, PassportModule],
 })
 export class AuthModule {}

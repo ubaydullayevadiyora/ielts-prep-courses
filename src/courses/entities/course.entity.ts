@@ -1,45 +1,50 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Unit } from '../../units/entities/unit.entity';
 
 @Entity('courses')
 export class Course {
   @PrimaryGeneratedColumn()
-  @ApiProperty()
+  @ApiProperty({ example: 1 })
   id: number;
 
   @Column()
-  @ApiProperty()
+  @ApiProperty({ example: 'English for Beginners' })
   title: string;
 
   @Column({ type: 'text' })
-  @ApiProperty()
+  @ApiProperty({ example: 'This course covers the basics of English grammar.' })
   description: string;
 
   @Column()
-  @ApiProperty()
+  @ApiProperty({ example: 'Beginner' })
   level: string;
 
   @Column({ default: 0 })
-  @ApiProperty()
+  @ApiProperty({ example: 0 })
   progress: number;
 
+  @Column({ default: 0 })
+  @ApiProperty({ example: 10, description: 'Total lessons in the course' })
+  lessons: number;
+
   @Column()
-  @ApiProperty()
+  @ApiProperty({ example: 'active' })
   status: string;
 
   @Column()
-  @ApiProperty()
-  weeks: number;
+  @ApiProperty({ example: 6, description: 'Months of access after purchase' })
+  month_access: number;
 
   @Column()
-  @ApiProperty()
-  duration: number; // months_access
+  @ApiProperty({ example: 90, description: 'Duration in minutes or hours' })
+  duration: number;
 
   @Column({ type: 'float', default: 0 })
-  @ApiProperty()
+  @ApiProperty({ example: 4.5 })
   rating: number;
 
-  @Column()
-  @ApiProperty()
-  lang: string;
+  @OneToMany(() => Unit, (unit) => unit.course)
+  @ApiProperty({ type: () => [Unit] })
+  units: Unit[];
 }

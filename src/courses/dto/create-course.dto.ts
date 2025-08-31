@@ -19,6 +19,11 @@ export class CreateCourseDto {
   @ApiProperty({ required: false })
   progress?: number;
 
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({ required: false })
+  lessons?: number;
+
   @IsString()
   @ApiProperty()
   status: string;
@@ -26,19 +31,15 @@ export class CreateCourseDto {
   @IsNumber()
   @IsPositive()
   @ApiProperty()
-  weeks: number;
+  month_access: number;
 
   @IsNumber()
   @IsPositive()
   @ApiProperty()
-  duration: number; // months_access
+  duration: number;
 
   @IsNumber()
   @IsOptional()
   @ApiProperty({ required: false })
   rating?: number;
-
-  @IsString()
-  @ApiProperty()
-  lang: string;
 }

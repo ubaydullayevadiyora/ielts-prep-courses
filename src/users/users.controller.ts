@@ -5,52 +5,58 @@ import {
   Body,
   Param,
   Delete,
-  Put,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles-auth.decorator';
 
 @ApiTags('Users')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  // 🔓 Public
   @Post()
   @ApiOperation({ summary: 'Register a new user' })
   @ApiResponse({ status: 201, description: 'User successfully created' })
-  @ApiResponse({ status: 400, description: 'Bad request' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
+  // 🔒 Faqat adminlar kirishi mumkin
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   @Get()
-  @ApiOperation({ summary: 'Get all users' })
-  @ApiResponse({ status: 200, description: 'Return list of users' })
+  @ApiOperation({ summary: 'Get all users (admin only)' })
   findAll() {
     return this.userService.findAll();
   }
 
+  // 🔒 Faqat user o‘zini yoki admin boshqalarni ko‘ra oladi
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'user')
   @Get(':id')
   @ApiOperation({ summary: 'Get user by ID' })
-  @ApiResponse({ status: 200, description: 'Return user object' })
-  @ApiResponse({ status: 404, description: 'User not found' })
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   @Patch(':id')
-  @ApiOperation({ summary: 'Update user by ID' })
-  @ApiResponse({ status: 200, description: 'User successfully updated' })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete user by ID' })
-  @ApiResponse({ status: 200, description: 'User successfully deleted' })
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }

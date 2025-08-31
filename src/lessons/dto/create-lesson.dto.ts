@@ -10,10 +10,6 @@ export class CreateLessonDto {
   @ApiProperty()
   title: string;
 
-  @IsString()
-  @ApiProperty()
-  content: string;
-
   @IsNumber()
   @ApiProperty()
   order_number: number;

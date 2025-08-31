@@ -7,6 +7,7 @@ import {
   Patch,
   Delete,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -20,8 +21,15 @@ import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { Admin } from './entities/admin.entity';
 
+// qo'shimcha importlar
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles-auth.decorator';
+
 @ApiTags('Admins')
 @Controller('admins')
+@UseGuards(AuthGuard('admin-jwt'), RolesGuard) // faqat admin jwt + roles
+@Roles('admin') // faqat admin ishlata oladi
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
