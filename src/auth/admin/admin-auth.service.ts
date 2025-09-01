@@ -1,5 +1,3 @@
-// src/admin-auth/admin-auth.service.ts
-
 import {
   Injectable,
   UnauthorizedException,
@@ -11,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Admin } from '../../admin/entities/admin.entity';
 import { CreateAdminDto } from '../../admin/dto/create-admin.dto';
-import { AdminLoginDto } from './dto/admin-auth.dto';
+import { LoginDto } from '../dto/login.dto';
 
 @Injectable()
 export class AdminAuthService {
@@ -33,10 +31,10 @@ export class AdminAuthService {
       throw new ConflictException('Admin already exists with this email');
     }
 
-    // password hash qilish
+    // password hash
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // admin yaratish
+    // admin create
     const newAdmin = this.adminRepository.create({
       username,
       email,
@@ -56,27 +54,23 @@ export class AdminAuthService {
   }
 
   // LOGIN
-  async login(loginAdminDto: AdminLoginDto) {
+  async login(loginAdminDto: LoginDto) {
     const { email, password } = loginAdminDto;
 
     const admin = await this.adminRepository.findOne({ where: { email } });
-    if (!admin) {
-      throw new UnauthorizedException('Invalid email or password');
-    }
+    if (!admin) throw new UnauthorizedException('Invalid email or password');
 
-    // password check
     const isPasswordValid = await bcrypt.compare(password, admin.password);
-    if (!isPasswordValid) {
+    if (!isPasswordValid)
       throw new UnauthorizedException('Invalid email or password');
-    }
 
-    // token yaratish
     const payload = { sub: admin.id, email: admin.email, role: 'admin' };
-    const token = this.jwtService.sign(payload);
+    const accessToken = this.jwtService.sign(payload, { expiresIn: '15m' });
+    const refreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
 
     return {
       message: 'Login successful',
-      accessToken: token,
+      tokens: { accessToken, refreshToken },
       admin: {
         id: admin.id,
         username: admin.username,

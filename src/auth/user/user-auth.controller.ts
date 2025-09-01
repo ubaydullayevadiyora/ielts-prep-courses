@@ -1,6 +1,6 @@
 import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { UserAuthService } from './user-auth.service'
-import { UserLoginDto } from './dto/user-auth.dto';
+import { LoginDto } from '../dto/login.dto';
 import { CreateUserDto } from '../../users/dto/create-user.dto';
 
 @Controller('user-auth')
@@ -14,7 +14,7 @@ export class UserAuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  async login(@Body() dto: UserLoginDto) {
+  async login(@Body() dto: LoginDto) {
     return this.userAuthService.login(dto);
   }
 }

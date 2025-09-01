@@ -9,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from '../../users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../../users/dto/create-user.dto';
-import { UserLoginDto } from './dto/user-auth.dto';
+import { LoginDto } from '../dto/login.dto';
 
 @Injectable()
 export class UserAuthService {
@@ -46,7 +46,7 @@ export class UserAuthService {
   }
 
   // ===== LOGIN =====
-  async login(dto: UserLoginDto) {
+  async login(dto: LoginDto) {
     const { email, password } = dto;
 
     const user = await this.userRepository.findOne({ where: { email } });
