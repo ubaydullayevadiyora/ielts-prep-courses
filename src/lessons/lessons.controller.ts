@@ -20,33 +20,33 @@ import { Roles } from '../common/decorators/roles-auth.decorator';
 
 @ApiTags('Lessons')
 @Controller('lessons')
-@UseGuards(JwtAuthGuard, RolesGuard) // 👈 barcha endpointlarga qo'llanadi
+@UseGuards(JwtAuthGuard, RolesGuard) //barcha endpointlarga qo'llanadi
 export class LessonController {
   constructor(private readonly lessonService: LessonService) {}
 
   @Post()
-  @Roles('admin', 'teacher') // 👈 dars yaratish faqat admin va teacher uchun
+  @Roles('admin') // dars yaratish faqat admin uchun
   @ApiOperation({ summary: 'Create a new lesson' })
   create(@Body() dto: CreateLessonDto) {
     return this.lessonService.create(dto);
   }
 
   @Get()
-  @Roles('admin', 'teacher', 'student') // 👈 hammaga ruxsat
+  @Roles('admin', 'user') //hammaga ruxsat
   @ApiOperation({ summary: 'Get all lessons' })
   findAll() {
     return this.lessonService.findAll();
   }
 
   @Get(':id')
-  @Roles('admin', 'teacher', 'student') // 👈 hammaga ruxsat
+  @Roles('admin', 'user') //hammaga ruxsat
   @ApiOperation({ summary: 'Get a single lesson by ID' })
   findOne(@Param('id') id: number) {
     return this.lessonService.findOne(+id);
   }
 
   @Patch(':id')
-  @Roles('admin', 'teacher') // 👈 faqat admin va teacher o'zgartiradi
+  @Roles('admin') // faqat admin o'zgartiradi
   @ApiOperation({ summary: 'Update a lesson by ID' })
   update(@Param('id') id: number, @Body() dto: UpdateLessonDto) {
     return this.lessonService.update(+id, dto);
@@ -54,7 +54,7 @@ export class LessonController {
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  @Roles('admin') // 👈 faqat admin o‘chiradi
+  @Roles('admin') //faqat admin o‘chiradi
   @ApiOperation({ summary: 'Delete a lesson by ID' })
   remove(@Param('id') id: number) {
     return this.lessonService.remove(+id);

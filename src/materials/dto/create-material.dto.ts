@@ -5,7 +5,7 @@ export enum MaterialType {
   VIDEO = 'video',
   AUDIO = 'audio',
   TEST = 'test',
-  DOCUMENT = 'document', // qo‘shimcha, agar kerak bo‘lsa
+  // DOCUMENT = 'document', 
 }
 
 export class CreateMaterialDto {

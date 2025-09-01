@@ -1,4 +1,3 @@
-// is-super-admin.guard.ts
 import {
   CanActivate,
   ExecutionContext,

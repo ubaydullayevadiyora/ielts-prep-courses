@@ -21,7 +21,7 @@ import { Roles } from '../common/decorators/roles-auth.decorator';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // 🔓 Public
+  //Public
   @Post()
   @ApiOperation({ summary: 'Register a new user' })
   @ApiResponse({ status: 201, description: 'User successfully created' })
@@ -29,7 +29,7 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  // 🔒 Faqat adminlar kirishi mumkin
+  //Faqat adminlar kirishi mumkin
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
   @Get()
@@ -38,7 +38,7 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  // 🔒 Faqat user o‘zini yoki admin boshqalarni ko‘ra oladi
+  //Faqat user o‘zini yoki admin boshqalarni ko‘ra oladi
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'user')
   @Get(':id')

@@ -25,28 +25,28 @@ export class SessionController {
   constructor(private readonly sessionService: SessionService) {}
 
   @Post()
-  @Roles('admin', 'teacher') // 👈 session faqat admin va teacher yaratadi
+  @Roles('admin') //session faqat admin yaratadi
   @ApiOperation({ summary: 'Create a new session' })
   create(@Body() dto: CreateSessionDto) {
     return this.sessionService.create(dto);
   }
 
   @Get()
-  @Roles('admin', 'teacher', 'student') // 👈 hammaga ruxsat
+  @Roles('admin', 'user') // hammaga ruxsat
   @ApiOperation({ summary: 'Get all sessions' })
   findAll() {
     return this.sessionService.findAll();
   }
 
   @Get(':id')
-  @Roles('admin', 'teacher', 'student') // 👈 hammaga ruxsat
+  @Roles('admin', 'user') //hammaga ruxsat
   @ApiOperation({ summary: 'Get a single session by ID' })
   findOne(@Param('id') id: number) {
     return this.sessionService.findOne(+id);
   }
 
   @Patch(':id')
-  @Roles('admin', 'teacher') // 👈 faqat admin va teacher update qiladi
+  @Roles('admin') // faqat adminupdate qiladi
   @ApiOperation({ summary: 'Update a session by ID' })
   update(@Param('id') id: number, @Body() dto: UpdateSessionDto) {
     return this.sessionService.update(+id, dto);
@@ -54,7 +54,7 @@ export class SessionController {
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  @Roles('admin') // 👈 faqat admin o‘chiradi
+  @Roles('admin') // faqat admin o‘chiradi
   @ApiOperation({ summary: 'Delete a session by ID' })
   remove(@Param('id') id: number) {
     return this.sessionService.remove(+id);

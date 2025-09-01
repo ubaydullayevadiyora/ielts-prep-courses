@@ -47,7 +47,7 @@ export class GeneralAuthService {
     }
   }
 
-  // Forget Password → send OTP
+  // Forget Password -> send OTP
   async forgetPassword(forgetPasswordDto: ForgetPasswordDto, res: Response) {
     const { email, role } = forgetPasswordDto;
     let otpData: any;
@@ -73,7 +73,7 @@ export class GeneralAuthService {
         throw new NotFoundException("Role noto'g'ri");
     }
 
-    // Cookie o‘rnatish
+    // Cookie 
     res.cookie('verification_key', otpData.verification_key, {
       maxAge: Number(process.env.COOKIE_REFRESH_TIME),
       httpOnly: true,

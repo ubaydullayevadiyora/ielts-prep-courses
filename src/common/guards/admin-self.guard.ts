@@ -1,4 +1,3 @@
-// admin-self.guard.ts
 import {
   CanActivate,
   ExecutionContext,
