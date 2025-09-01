@@ -23,11 +23,14 @@ export class User {
   @Column({ type: 'varchar' })
   password: string;
 
-  @Column({ type: 'varchar', length: 20, unique: true })
+  @Column({ type: 'varchar', length: 20})
   phone_number: string;
 
   @Column({ type: 'boolean', default: true })
   is_active: boolean;
+
+  @Column({ type: 'boolean', default: true })
+  is_verified: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;

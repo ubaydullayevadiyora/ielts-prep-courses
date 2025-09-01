@@ -1,15 +1,9 @@
-import {
-  Injectable,
-  BadRequestException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
 import { User } from '../../users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../../users/dto/create-user.dto';
-import { LoginDto } from '../dto/login.dto';
 
 @Injectable()
 export class UserAuthService {
@@ -21,7 +15,7 @@ export class UserAuthService {
 
   // ===== REGISTER =====
   async register(dto: CreateUserDto) {
-    const { first_name, last_name, email, phone_number, password } = dto;
+    const { first_name, last_name, email, phone_number } = dto;
 
     const existingUser = await this.userRepository.findOne({
       where: { email },
@@ -30,14 +24,11 @@ export class UserAuthService {
       throw new BadRequestException(`Bu email allaqachon ro'yxatdan o'tgan`);
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const user = this.userRepository.create({
       first_name,
       last_name,
       email,
       phone_number,
-      password: hashedPassword,
     });
 
     await this.userRepository.save(user);
@@ -46,37 +37,14 @@ export class UserAuthService {
   }
 
   // ===== LOGIN =====
-  async login(dto: LoginDto) {
-    const { email, password } = dto;
-
+  async login(email: string) {
     const user = await this.userRepository.findOne({ where: { email } });
-    if (!user) {
-      throw new UnauthorizedException(`Email yoki parol noto'g'ri`);
-    }
+    if (!user) throw new BadRequestException('User not found');
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      throw new UnauthorizedException(`Email yoki parol noto'g'ri`);
-    }
+    // JWT token generatsiya qilishingiz mumkin
+    const payload = { userId: user.id, email: user.email };
+    const token = this.jwtService.sign(payload);
 
-    const payload = { sub: user.id, email: user.email };
-    const accessToken = await this.jwtService.signAsync(payload, {
-      expiresIn: '15m',
-    });
-    const refreshToken = await this.jwtService.signAsync(payload, {
-      expiresIn: '7d',
-    });
-
-    return {
-      message: 'Login muvaffaqiyatli',
-      accessToken,
-      refreshToken,
-      user: {
-        id: user.id,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-      },
-    };
+    return { message: 'Login successful', token, user };
   }
 }
