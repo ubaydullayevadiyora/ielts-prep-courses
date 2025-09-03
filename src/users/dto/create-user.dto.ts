@@ -4,7 +4,6 @@ import {
   IsEmail,
   IsNotEmpty,
   IsString,
-  MinLength,
   Matches,
 } from 'class-validator';
 
@@ -27,14 +26,6 @@ export class CreateUserDto {
   email: string;
 
   @ApiProperty({
-    description: 'User password (min 6 chars)',
-    example: 'UserPass123!',
-  })
-  @IsString()
-  @MinLength(6)
-  password: string;
-
-  @ApiProperty({
     description: 'User phone number (digits, optional +, 9–15 length)',
     example: '+998901234567',
   })
@@ -46,5 +37,5 @@ export class CreateUserDto {
 
   @ApiProperty({ description: 'Active status of the user', example: true })
   @IsBoolean()
-  is_active: boolean;
+  is_active?: boolean;
 }
