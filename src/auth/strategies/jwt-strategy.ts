@@ -7,7 +7,7 @@ export interface JwtPayload {
   sub: number;
   email: string;
   role: string;
-  isCreator?: boolean;
+  is_creator?: boolean;
 }
 
 @Injectable()
@@ -25,7 +25,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       id: payload.sub,
       email: payload.email,
       role: payload.role,
-      isCreator: payload.isCreator ?? false,
+      is_creator: payload.is_creator ?? false,
     };
   }
 }
