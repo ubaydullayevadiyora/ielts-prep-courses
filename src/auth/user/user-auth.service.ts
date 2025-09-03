@@ -42,7 +42,7 @@ export class UserAuthService {
     if (!user) throw new BadRequestException('User not found');
 
     // JWT token generatsiya qilishingiz mumkin
-    const payload = { userId: user.id, email: user.email };
+    const payload = { userId: user.id, email: user.email, role: 'user' };
     const token = this.jwtService.sign(payload);
 
     return { message: 'Login successful', token, user };

@@ -74,6 +74,7 @@ export class AdminAuthService {
     const payload = {
       sub: admin.id,
       email: admin.email,
+      role: 'admin',
       is_creator: admin.is_creator,
     };
     const accessToken = this.jwtService.sign(payload, { expiresIn: '15m' });
