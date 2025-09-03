@@ -23,6 +23,8 @@ export class AdminAuthService {
 
   // ===== CREATE NEW ADMIN (FAKAT SUPERADMIN) =====
   async createAdmin(createAdminDto: CreateAdminDto, currentAdmin: Admin) {
+    console.log('currentAdmin:', currentAdmin);
+    console.log('DTO:', createAdminDto);
     if (!currentAdmin.is_creator) {
       throw new ForbiddenException('Only superadmin can create new admins');
     }
@@ -46,9 +48,6 @@ export class AdminAuthService {
     });
 
     const savedAdmin = await this.adminRepository.save(newAdmin);
-
-    console.log('DTO:', createAdminDto);
-    console.log('User:', currentAdmin);
 
     return {
       message: 'Admin created successfully',
