@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import * as express from 'express';
 import { join } from 'path';
-import { createSuperAdmin } from './seeds/create-super-admin';
+// import { createSuperAdmin } from './seeds/create-super-admin';
 import { DataSource } from 'typeorm';
 
 async function bootstrap() {
@@ -17,7 +17,7 @@ async function bootstrap() {
   const dataSource = app.get(DataSource);
 
   // ❗ Faqat birinchi ishga tushirishda superadmin yaratadi
-  await createSuperAdmin(dataSource);
+  // await createSuperAdmin(dataSource);
 
   // Global validation
   app.useGlobalPipes(
