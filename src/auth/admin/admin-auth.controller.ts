@@ -18,7 +18,7 @@ import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 export class AdminAuthController {
   constructor(private readonly adminAuthService: AdminAuthService) {}
 
-  // ===== CREATE NEW ADMIN (FAKAT SUPERADMIN) =====
+  // ===== CREATE NEW ADMIN (FAQAT SUPERADMIN) =====
   @UseGuards(JwtAuthGuard) // 🔑 JWT guardni qo‘shdik
   @Post('create-admin')
   @ApiOperation({ summary: 'Create a new admin (superadmin only)' })
