@@ -47,6 +47,9 @@ export class AdminAuthService {
 
     const savedAdmin = await this.adminRepository.save(newAdmin);
 
+    console.log('DTO:', createAdminDto);
+    console.log('User:', currentAdmin);
+
     return {
       message: 'Admin created successfully',
       admin: {

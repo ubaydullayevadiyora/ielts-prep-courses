@@ -17,6 +17,7 @@ export class AdminService {
     return await this.adminRepository.save(newAdmin);
   }
 
+  
   async findAll(): Promise<Admin[]> {
     return await this.adminRepository.find();
   }
