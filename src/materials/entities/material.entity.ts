@@ -10,8 +10,9 @@ import { Lesson } from '../../lessons/entities/lesson.entity';
 export enum MaterialType {
   VIDEO = 'video',
   AUDIO = 'audio',
+  TEXT = 'text',
+  PDF = 'pdf',
   TEST = 'test',
-  // DOCUMENT = 'document',
 }
 
 @Entity('materials')
@@ -28,8 +29,8 @@ export class Material {
   @Column()
   title: string;
 
-  @Column({ type: 'text' })
-  description: string;
+  @Column({ type: 'text', nullable: true })
+  description?: string;
 
   @Column({
     type: 'enum',
@@ -40,6 +41,6 @@ export class Material {
   @Column({ nullable: true })
   url?: string;
 
-  @Column()
+  @Column({ default: 1 })
   order_number: number;
 }
