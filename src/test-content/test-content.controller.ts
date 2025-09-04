@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { TestContentService } from './test-content.service';
-import { CreateTestContentDto } from './dto/create-test-content.dto';
-import { UpdateTestContentDto } from './dto/update-test-content.dto';
+import { TestService } from './test-content.service';
+import { CreateTestDto } from './dto/create-test-content.dto';
+import { UpdateTestDto } from './dto/update-test-content.dto';
 
 @Controller('test-content')
 export class TestContentController {
-  constructor(private readonly testContentService: TestContentService) {}
+  constructor(private readonly testContentService: TestService) {}
 
   @Post()
-  create(@Body() createTestContentDto: CreateTestContentDto) {
+  create(@Body() createTestContentDto: CreateTestDto) {
     return this.testContentService.create(createTestContentDto);
   }
 
@@ -23,7 +23,7 @@ export class TestContentController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTestContentDto: UpdateTestContentDto) {
+  update(@Param('id') id: string, @Body() updateTestContentDto: UpdateTestDto) {
     return this.testContentService.update(+id, updateTestContentDto);
   }
 

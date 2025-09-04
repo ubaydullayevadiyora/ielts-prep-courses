@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Test } from '@nestjs/testing';
 import { CreateTestDto } from './dto/create-test-content.dto';
-import { UpdateTestContentDto } from './dto/update-test-content.dto';
+import { UpdateTestDto } from './dto/update-test-content.dto';
 import { Material } from '../materials/entities/material.entity';
 
 @Injectable()
@@ -57,7 +57,7 @@ export class TestService {
   }
 
   // UPDATE
-  async update(id: number, updateTestDto: UpdateTestContentDto): Promise<Test> {
+  async update(id: number, updateTestDto: UpdateTestDto): Promise<Test> {
     const test = await this.findOne(id);
 
     Object.assign(test, updateTestDto);
