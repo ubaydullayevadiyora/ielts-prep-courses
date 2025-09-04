@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Test } from '@nestjs/testing';
+import { Test } from './entities/test-content.entity'; // ✅ to‘g‘ri import
 import { CreateTestDto } from './dto/create-test-content.dto';
 import { UpdateTestDto } from './dto/update-test-content.dto';
 import { Material } from '../materials/entities/material.entity';
@@ -11,6 +11,7 @@ export class TestService {
   constructor(
     @InjectRepository(Test)
     private readonly testRepository: Repository<Test>,
+
     @InjectRepository(Material)
     private readonly materialRepository: Repository<Material>,
   ) {}
@@ -59,9 +60,7 @@ export class TestService {
   // UPDATE
   async update(id: number, updateTestDto: UpdateTestDto): Promise<Test> {
     const test = await this.findOne(id);
-
     Object.assign(test, updateTestDto);
-
     return this.testRepository.save(test);
   }
 
@@ -69,7 +68,6 @@ export class TestService {
   async remove(id: number): Promise<{ message: string }> {
     const test = await this.findOne(id);
     await this.testRepository.remove(test);
-
     return { message: `Test with ID ${id} has been removed` };
   }
 }

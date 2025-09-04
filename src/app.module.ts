@@ -22,9 +22,9 @@ import { Unit } from './units/entities/unit.entity';
 import { Enrollment } from './enrollments/entities/enrollment.entity';
 import { MaterialsModule } from './materials/materials.module';
 import { Material } from './materials/entities/material.entity';
-import { TestModule } from './test-content/test-content.module';
 import { QuestionModule } from './question/question.module';
 import { OptionModule } from './option/option.module';
+import { TestContentModule } from './test-content/test-content.module';
 
 @Module({
   imports: [
@@ -63,7 +63,7 @@ import { OptionModule } from './option/option.module';
     LessonProgressModule,
     ReviewModule,
     MaterialsModule,
-    TestModule,
+    TestContentModule,
     QuestionModule,
     OptionModule,
   ],
