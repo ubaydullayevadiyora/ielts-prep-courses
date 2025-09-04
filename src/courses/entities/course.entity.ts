@@ -44,7 +44,7 @@ export class Course {
   @ApiProperty({ example: 4.5 })
   rating: number;
 
-  @OneToMany(() => Unit, (unit) => unit.course)
+  @OneToMany(() => Unit, (unit) => unit.course, { cascade: true })
   @ApiProperty({ type: () => [Unit] })
   units: Unit[];
 }

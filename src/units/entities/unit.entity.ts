@@ -17,7 +17,7 @@ export class Unit {
   id: number;
 
   @ManyToOne(() => Course, (course) => course.units, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'course_id' })
+  @JoinColumn({ name: 'course_id' }) // foreign key nomi
   @ApiProperty({ type: () => Course })
   course: Course;
 
@@ -25,11 +25,14 @@ export class Unit {
   @ApiProperty({ example: 'Unit 1: Introduction to English' })
   title: string;
 
-  @Column()
-  @ApiProperty({ example: 1 })
+  @Column({ default: 1 })
+  @ApiProperty({
+    example: 1,
+    description: 'Order number of unit inside course',
+  })
   order_number: number;
 
-  @OneToMany(() => Session, (session) => session.unit)
+  @OneToMany(() => Session, (session) => session.unit, { cascade: true })
   @ApiProperty({ type: () => [Session] })
   sessions: Session[];
 }

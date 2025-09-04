@@ -25,11 +25,14 @@ export class Session {
   @ApiProperty({ example: 'Session 1: Basics of English Grammar' })
   title: string;
 
-  @Column()
-  @ApiProperty({ example: 1 })
+  @Column({ default: 1 })
+  @ApiProperty({
+    example: 1,
+    description: 'Order number of session inside unit',
+  })
   order_number: number;
 
-  @OneToMany(() => Lesson, (lesson) => lesson.session)
+  @OneToMany(() => Lesson, (lesson) => lesson.session, { cascade: true })
   @ApiProperty({ type: () => [Lesson] })
   lessons: Lesson[];
 }

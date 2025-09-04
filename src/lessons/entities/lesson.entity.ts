@@ -27,11 +27,14 @@ export class Lesson {
   @ApiProperty({ example: 'Lesson 1: Introduction to IELTS' })
   title: string;
 
-  @Column()
-  @ApiProperty({ example: 1 })
+  @Column({ default: 1 })
+  @ApiProperty({
+    example: 1,
+    description: 'Order number of lesson inside session',
+  })
   order_number: number;
 
-  @OneToMany(() => Material, (material) => material.lesson)
+  @OneToMany(() => Material, (material) => material.lesson, { cascade: true })
   @ApiProperty({ type: () => [Material] })
   materials: Material[];
 }
