@@ -5,7 +5,6 @@ export enum MaterialType {
   VIDEO = 'video',
   AUDIO = 'audio',
   TEST = 'test',
-  // DOCUMENT = 'document',
 }
 
 export class CreateMaterialDto {
