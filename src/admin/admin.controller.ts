@@ -28,7 +28,7 @@ import { Roles } from '../common/decorators/roles-auth.decorator';
 
 @ApiTags('Admins')
 @Controller('admins')
-@UseGuards(AuthGuard('admin-jwt'), RolesGuard) // faqat admin jwt + roles
+@UseGuards(AuthGuard('jwt'), RolesGuard) // faqat admin jwt + roles
 @Roles('admin') // faqat admin ishlata oladi
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
