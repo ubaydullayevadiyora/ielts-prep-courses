@@ -49,8 +49,7 @@ import { TestContentModule } from './test-content/test-content.module';
         Material,
       ],
       synchronize: true,
-      ssl:
-        process.env.PG_SSL === 'true' ? { rejectUnauthorized: false } : false,
+      
     }),
     AdminModule,
     UserModule,
