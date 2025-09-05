@@ -9,12 +9,14 @@ jobs:
     steps:
       - name: Kodni yuklash
         uses: actions/checkout@v4
+
       - name: SSH kalitni sozlash
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
         shell: bash
+
       - name: Serverga deploy qilish
         env:
           HOST: ${{ secrets.HOST }}
@@ -27,12 +29,11 @@ jobs:
             if [ ! -d $APP_DIR ]; then
               mkdir -p $APP_DIR
               git clone https://github.com/ubaydullayevadiyora/ielts-prep-courses.git $APP_DIR
-              cd $APP_DIR
-              echo 'PORT=${PORT}' > .env
-            else 
-              cd $APP_DIR
-              git pull origin main
             fi
+            cd $APP_DIR
+            git fetch origin main
+            git reset --hard origin/main
+            echo 'PORT=${PORT}' > .env
             npm install
             npm run build
             pm2 restart ielts_prep || pm2 start dist/main.js --name ielts_prep

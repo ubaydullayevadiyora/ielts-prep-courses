@@ -9,13 +9,10 @@ import { Test } from '../test-content/entities/test-content.entity';
 import { Option } from '../option/entities/option.entity';
 import { Material } from '../materials/entities/material.entity';
 
-
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Question, Test, Option, Material]), // barcha entity lar
-  ],
+  imports: [TypeOrmModule.forFeature([Question, Test, Option, Material])],
   controllers: [QuestionController],
-  providers: [QuestionService, TestService, OptionService], // barcha repository lar
+  providers: [QuestionService, TestService, OptionService],
   exports: [QuestionService],
 })
 export class QuestionModule {}
