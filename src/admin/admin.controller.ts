@@ -19,16 +19,14 @@ import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { Admin } from './entities/admin.entity';
-
-// qo'shimcha importlar
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles-auth.decorator';
 
 @ApiTags('Admins')
 @Controller('admins')
-@UseGuards(AuthGuard('jwt'), RolesGuard) // faqat admin jwt + roles
-@Roles('admin') // faqat admin ishlata oladi
+@UseGuards(AuthGuard('jwt'), RolesGuard)
+@Roles('admin') 
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 

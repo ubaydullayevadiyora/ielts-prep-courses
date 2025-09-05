@@ -3,21 +3,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-// Strategies & Guards
 import { JwtStrategy } from './strategies/jwt-strategy';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
-
-// Controllers & Services
 import { AdminAuthController } from './admin/admin-auth.controller';
 import { AdminAuthService } from './admin/admin-auth.service';
 import { UserAuthController } from './user/user-auth.controller';
 import { UserAuthService } from './user/user-auth.service';
-
-// Entities
 import { Admin } from '../admin/entities/admin.entity';
 import { User } from '../users/entities/user.entity';
-
 
 @Module({
   imports: [

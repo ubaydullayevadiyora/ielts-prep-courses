@@ -29,7 +29,6 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  //Faqat adminlar kirishi mumkin
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
   @Get()
@@ -38,7 +37,6 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  //Faqat user o‘zini yoki admin boshqalarni ko‘ra oladi
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'user')
   @Get(':id')

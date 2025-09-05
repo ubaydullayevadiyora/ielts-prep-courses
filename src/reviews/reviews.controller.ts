@@ -25,28 +25,28 @@ export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
   @Post()
-  @Roles('user', 'admin') // oddiy foydalanuvchi ham, admin ham review qila oladi
+  @Roles('user', 'admin') 
   @ApiOperation({ summary: 'Create a new review' })
   create(@Body() dto: CreateReviewDto) {
     return this.reviewService.create(dto);
   }
 
   @Get()
-  @Roles('admin', 'user') // hammaga ruxsat
+  @Roles('admin', 'user') 
   @ApiOperation({ summary: 'Get all reviews' })
   findAll() {
     return this.reviewService.findAll();
   }
 
   @Get(':id')
-  @Roles('admin', 'user') // hammaga ruxsat
+  @Roles('admin', 'user') 
   @ApiOperation({ summary: 'Get a single review by ID' })
   findOne(@Param('id') id: number) {
     return this.reviewService.findOne(+id);
   }
 
   @Patch(':id')
-  @Roles('user', 'admin') // faqat o‘z reviewini foydalanuvchi update qiladi, admin esa hammasini
+  @Roles('user', 'admin') 
   @ApiOperation({ summary: 'Update a review by ID' })
   update(@Param('id') id: number, @Body() dto: UpdateReviewDto) {
     return this.reviewService.update(+id, dto);
@@ -54,7 +54,7 @@ export class ReviewController {
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  @Roles('admin') // faqat admin o‘chiradi
+  @Roles('admin') 
   @ApiOperation({ summary: 'Delete a review by ID' })
   remove(@Param('id') id: number) {
     return this.reviewService.remove(+id);

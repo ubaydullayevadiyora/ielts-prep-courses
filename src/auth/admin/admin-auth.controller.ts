@@ -19,14 +19,14 @@ export class AdminAuthController {
   constructor(private readonly adminAuthService: AdminAuthService) {}
 
   // ===== CREATE NEW ADMIN (FAQAT SUPERADMIN) =====
-  @UseGuards(JwtAuthGuard) // 🔑 JWT guardni qo‘shdik
+  @UseGuards(JwtAuthGuard)
   @Post('create-admin')
   @ApiOperation({ summary: 'Create a new admin (superadmin only)' })
   @ApiResponse({ status: 201, description: 'Admin successfully created' })
   @ApiResponse({ status: 403, description: 'Forbidden: not superadmin' })
   @ApiBody({ type: CreateAdminDto })
   async createAdmin(@Body() dto: CreateAdminDto, @Req() req: any) {
-    console.log('req.user:', req.user); // debug
+    console.log('req.user:', req.user); 
     return this.adminAuthService.createAdmin(dto, req.user);
   }
 
@@ -42,7 +42,7 @@ export class AdminAuthController {
   }
 
   // ===== CHANGE PASSWORD =====
-  @UseGuards(JwtAuthGuard) // 🔑 bu yerga ham qo‘shish kerak
+  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @Post('change-password')
   @ApiOperation({ summary: 'Change admin password' })

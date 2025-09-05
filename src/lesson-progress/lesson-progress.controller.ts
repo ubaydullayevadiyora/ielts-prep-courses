@@ -20,33 +20,33 @@ import { Roles } from '../common/decorators/roles-auth.decorator';
 
 @ApiTags('Lesson Progress')
 @Controller('lessons-progress')
-@UseGuards(JwtAuthGuard, RolesGuard) // barcha route-larga JWT + RolesGuard qo‘llanadi
+@UseGuards(JwtAuthGuard, RolesGuard) 
 export class LessonProgressController {
   constructor(private readonly lessonProgressService: LessonProgressService) {}
 
   @Post()
-  @Roles('admin') // Faqat admin qo‘shishi mumkin
+  @Roles('admin') 
   @ApiOperation({ summary: 'Create a new lesson progress' })
   create(@Body() dto: CreateLessonProgressDto) {
     return this.lessonProgressService.create(dto);
   }
 
   @Get()
-  @Roles('admin') // Admin hammasini ko‘rishi mumkin
+  @Roles('admin') 
   @ApiOperation({ summary: 'Get all lesson progress' })
   findAll() {
     return this.lessonProgressService.findAll();
   }
 
   @Get(':id')
-  @Roles('admin', 'user') // user faqat o‘zining progressini ko‘rishi mumkin (service da tekshiramiz)
+  @Roles('admin', 'user') 
   @ApiOperation({ summary: 'Get a single lesson progress by ID' })
   findOne(@Param('id') id: number) {
     return this.lessonProgressService.findOne(+id);
   }
 
   @Patch(':id')
-  @Roles('admin') // faqat admin update qila oladi
+  @Roles('admin') 
   @ApiOperation({ summary: 'Update a lesson progress by ID' })
   update(@Param('id') id: number, @Body() dto: UpdateLessonProgressDto) {
     return this.lessonProgressService.update(+id, dto);
@@ -54,7 +54,7 @@ export class LessonProgressController {
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  @Roles('admin') // faqat admin delete qila oladi
+  @Roles('admin') 
   @ApiOperation({ summary: 'Delete a lesson progress by ID' })
   remove(@Param('id') id: number) {
     return this.lessonProgressService.remove(+id);

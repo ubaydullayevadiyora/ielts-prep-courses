@@ -17,7 +17,7 @@ export class Unit {
   id: number;
 
   @ManyToOne(() => Course, (course) => course.units, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'course_id' }) // foreign key nomi
+  @JoinColumn({ name: 'course_id' }) 
   @ApiProperty({ type: () => Course })
   course: Course;
 

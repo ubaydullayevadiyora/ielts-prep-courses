@@ -6,6 +6,6 @@ import { MaterialsService } from './materials.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Material])],
   providers: [MaterialsService],
-  exports: [MaterialsService], // boshqa modullarda ishlatish uchun
+  exports: [MaterialsService], 
 })
 export class MaterialsModule {}

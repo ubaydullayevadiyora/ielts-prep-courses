@@ -12,10 +12,8 @@ export class AdminSelfGuard implements CanActivate {
     const { user } = request;
     const targetAdminId = request.params.id; // URL: /admins/:id
 
-    // SuperAdmin hammani boshqaradi
     if (user?.role === 'admin' && user?.isCreator) return true;
 
-    // Oddiy admin faqat o'zini update/delete qila oladi
     if (user?.role === 'admin' && user?.id === +targetAdminId) return true;
 
     throw new ForbiddenException('You can only manage your own account');

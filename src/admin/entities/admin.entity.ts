@@ -21,7 +21,7 @@ export class Admin {
   password: string;
 
   @Column({ type: 'boolean', default: false })
-  is_creator: boolean; // faqat asosiy admin uchun true bo‘lishi mumkin
+  is_creator: boolean;
 
   @Column({ type: 'boolean', default: true })
   is_active: boolean;

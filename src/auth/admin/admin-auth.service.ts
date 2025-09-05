@@ -10,7 +10,6 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Admin } from '../../admin/entities/admin.entity';
 import { CreateAdminDto } from '../../admin/dto/create-admin.dto';
-import { LoginDto } from '../dto/login.dto';
 import { AdminLoginDto } from '../dto/admin-login.dto';
 
 @Injectable()
@@ -21,7 +20,7 @@ export class AdminAuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  // ===== CREATE NEW ADMIN (FAKAT SUPERADMIN) =====
+  // ===== CREATE NEW ADMIN (superadmin) =====
   async createAdmin(createAdminDto: CreateAdminDto, currentAdmin: Admin) {
     console.log('currentAdmin:', currentAdmin);
     console.log('DTO:', createAdminDto);
@@ -44,7 +43,7 @@ export class AdminAuthService {
       username,
       email,
       password: hashedPassword,
-      is_creator: false, // yangi adminlar faqat oddiy admin
+      is_creator: false, 
     });
 
     const savedAdmin = await this.adminRepository.save(newAdmin);

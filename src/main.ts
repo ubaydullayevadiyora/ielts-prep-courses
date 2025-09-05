@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import * as express from 'express';
 import { join } from 'path';
-import { createSuperAdmin } from './seeds/create-super-admin';
+// import { createSuperAdmin } from './seeds/create-super-admin';
 import { DataSource } from 'typeorm';
 
 async function bootstrap() {
@@ -16,8 +16,8 @@ async function bootstrap() {
   // DataSource ni olish
   const dataSource = app.get(DataSource);
 
-  // ❗ Faqat birinchi ishga tushirishda superadmin yaratadi
-  await createSuperAdmin(dataSource);
+  //Faqat birinchi ishga tushirishda superadmin yaratadi
+  // await createSuperAdmin(dataSource);
 
   // Global validation
   app.useGlobalPipes(
@@ -47,7 +47,7 @@ async function bootstrap() {
   const PORT = process.env.PORT || 3000;
   await app.listen(PORT, '0.0.0.0');
 
-  console.log(`✅ Server is running on http://localhost:${PORT}`);
-  console.log(`✅ Swagger is available on http://localhost:${PORT}/api/docs`);
+  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Swagger is available on http://localhost:${PORT}/api/docs`);
 }
 bootstrap();
