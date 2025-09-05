@@ -28,7 +28,7 @@ import { TestContentModule } from './test-content/test-content.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }), // .env global
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }), // .env global
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.PG_HOST,
@@ -49,7 +49,6 @@ import { TestContentModule } from './test-content/test-content.module';
         Material,
       ],
       synchronize: true,
-      
     }),
     AdminModule,
     UserModule,
